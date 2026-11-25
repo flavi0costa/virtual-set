@@ -1,0 +1,14 @@
+{
+  "name": "iv-studio-virtual-set",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Isolated 3D virtual set prototype for IV Studio",
+  "main": "server.cjs",
+  "scripts": {
+    "start": "node server.cjs",
+    "check": "node --check server.cjs && node --check renderer/app.js && node --check vendor/OrbitControls.js && node --check vendor/TransformControls.js && node --check vendor/GLTFLoader.js && node --check vendor/GLTFExporter.js && node --check vendor/three.module.js && node --check vendor/utils/BufferGeometryUtils.js"
+  },
+  "devDependencies": {
+    "three": "0.171.0"
+  }
+}
