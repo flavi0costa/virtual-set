@@ -8,3 +8,4 @@ runtime/
 *.tmp.json
 *.tmp.cjs
 electron-smoke.log
+latest-*.log
