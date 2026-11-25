@@ -1,0 +1,58 @@
+{
+  "appId": "ai.infinitevariance.virtualset",
+  "directories": {
+    "output": "release",
+    "buildResources": "resources"
+  },
+  "nsis": {
+    "oneClick": false,
+    "deleteAppDataOnUninstall": false,
+    "perMachine": false,
+    "allowToChangeInstallationDirectory": true
+  },
+  "productName": "Virtual Set",
+  "files": [
+    "dist/**/*",
+    "electron/**/*",
+    "server.cjs",
+    "package.json",
+    "vendor/**/*",
+    "renderer/**/*",
+    "style.css",
+    "index.html"
+  ],
+  "win": {
+    "artifactName": "Virtual-Set-${version}-Setup.${ext}",
+    "target": [
+      {
+        "target": "nsis",
+        "arch": [
+          "x64"
+        ]
+      }
+    ]
+  },
+  "asar": true,
+  "extraResources": [
+    {
+      "to": "server.cjs",
+      "from": "server.cjs"
+    },
+    {
+      "to": "node/node.exe",
+      "from": "runtime/node/node.exe"
+    },
+    {
+      "to": "licenses/node/LICENSE.txt",
+      "from": "licenses/Node-LICENSE-v26.13.1.txt"
+    },
+    {
+      "to": "renderer",
+      "from": "renderer"
+    },
+    {
+      "to": "vendor",
+      "from": "vendor"
+    }
+  ]
+}

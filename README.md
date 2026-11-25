@@ -4,30 +4,50 @@ Protótipo local e isolado para realização 3D de uma sala de referência MiniM
 
 ## Arranque
 
-1. Instalar Node.js 20 ou superior.
-2. Na pasta `virtual-set`, executar `npm ci` e `npm start`.
-3. Abrir `http://127.0.0.1:4193` (ou a porta definida por `VIRTUAL_SET_PORT`).
+### Windows (recomendado)
 
-Os dados ficam em `virtual-set/data/` e no armazenamento local do browser, separados de `AppData\Roaming\IV Studio`, de projetos de produção e dos modelos ComfyUI. A resolução por omissão é 640×360 para reduzir carga gráfica.
+Executar `release/Virtual-Set-0.1.0-Setup.exe`. O instalador é independente do IV Studio, não toca nos seus dados e mantém a pasta de dados do Virtual Set ao desinstalar. O executável portátil também está em `release/win-unpacked/Virtual Set.exe`.
 
-## Conteúdo
+### Desenvolvimento
 
-- Sala experimental inicial de 6×5×3 m, com porta, duas janelas, mesa, sofá e dois manequins.
-- Navegação orbital, dimensões ajustáveis, biblioteca geométrica, transformação XYZ e importação GLB/glTF.
-- Seis superfícies com importação de imagem, escala e orientação.
-- Câmara com alvo, lente, três predefinições de enquadramento, keyframes, interpolação suave, órbita e trajetória de personagem.
-- Exportação de 21 frames PNG e de MP4 H.264 via FFmpeg. O MP4 de aceitação foi validado a 640×360, 4 fps e 2 s; o diretório/export fica dentro de `data/exports/`.
+Requer Node.js 22.12 ou superior para desenvolvimento. Na pasta do projeto: `npm ci`, `node node_modules/electron/install.js`, `npm start`. O primeiro comando instala o grafo isolado; o segundo descarrega o runtime Electron, conforme o script oficial npm. O preview Web pode arrancar com `npm run start:web` e a porta 4193. `npm run package:win` copia automaticamente o runtime Node dedicado e cria o instalador.
 
-## Estado e testes
+As cenas, texturas, modelos e exportações da app instalada ficam em `%APPDATA%/iv-studio-virtual-set/Virtual Set Data/`, separadas dos dados do IV Studio. O repositório tem Git próprio; `data/`, `dist/`, `release/`, `runtime/` e `node_modules/` são ignorados.
 
-`npm run check` verifica a sintaxe dos módulos e do código. Testes efetivamente feitos no browser: canvas Three.js ativo; sala 6×5×3 com porta, duas janelas, mesa, sofá e dois manequins; alteração da mesa para X=2 guardada em JSON e recuperada após recarregar a página; importação das seis texturas e confirmação dos seis assets em disco; enquadramentos, órbita e trajetória; exportação de 21 PNG; MP4 H.264 reproduzível com FFmpeg (8 frames, 640×360, 4 fps, 2 s, 10 430 bytes), confirmado pela leitura do stream FFmpeg.
+## Conteúdo V0.1
 
-Limitações V0.1: a app é uma página local servida por Node.js com Three.js, não um renderer React/Electron. A navegação implementada é orbital/zoom/pan, sem modo de caminhada em primeira pessoa. A importação GLB/glTF está marcada como pendente enquanto o carregamento do addon falha no preview atual. O manipulador TransformControls e a biblioteca de mobiliário precisam de QA visual adicional; os manequins são proxies geométricos, não personagens animados articulados. A integração nativa no IV Studio não foi feita; o vídeo é uma referência técnica exportada e não é submetido ao H3. Os repositórios oficiais externos não puderam ser consultados neste ambiente devido à resolução DNS do GitHub, pelo que não houve reutilização de código desses projetos. A versão instalada do IV Studio continua por confirmar; 1.1.28 é apenas a versão do instalador pendente.
+- Sala 6×5×3 m, porta e duas janelas integradas na geometria, mesa, sofá e dois manequins proxy. A parede sul pode ser ocultada temporariamente para pré-visualizar o interior.
+- Navegação orbital/zoom/pan, seis superfícies com texturas individuais, rotação e escala.
+- Biblioteca de geometria/mobiliário, importação GLB/glTF, manipulação XYZ e rotação.
+- Câmara virtual com alvo, distância focal, três enquadramentos, keyframes e interpolação suave; órbita e trajetória de manequim.
+- Iluminação e exposição configuráveis.
+- Guardar/reabrir cena em JSON; cópias de texturas e modelos em pastas da cena.
+- Exportação de fotogramas PNG e MP4 H.264 via FFmpeg. Predefinição leve: 640×360.
+- `IMPORTAR_IV_STUDIO.md` no output de vídeo documenta a importação manual. Não há submissão automática ao H3.
 
-## Licenças e proveniência
+## Verificação executada
 
-Three.js 0.171.0 é distribuído sob MIT; os módulos de controlo, GLTFLoader e GLTFExporter vêm da mesma dependência Three.js. Os fontes originais são preservados em `node_modules/three` e cópias de runtime em `vendor/`. A consulta aos repositórios oficiais IV Studio, VIG-MiniMaxH3-Director, ComfyUI_VNCCS_Utils e comfyui-blender-layout falhou por indisponibilidade de DNS GitHub neste ambiente. Não foi reutilizado código desses projetos. A versão da instalação efetiva de IV Studio não foi confirmada; o instalador em cache indica 1.1.28 e é apenas uma versão pendente.
+- `npm run check` e `npm run build` concluídos.
+- `npm run package:win` criou o instalador Windows x64 em `release/Virtual-Set-0.1.0-Setup.exe` e a pasta portátil em `release/win-unpacked/`. O pacote não tem assinatura digital.
+- O Electron empacotado arrancou e serviu a interface Three.js. A cena experimental 6×5×3 foi guardada, a aplicação foi fechada, reaberta e a cena recuperada com quatro objetos colocados, porta, duas janelas, seis texturas e posições persistidas.
+- Pela interface Electron, foram escolhidos três enquadramentos, criada a órbita de câmara e a trajetória de um manequim. O MP4 exportado contém 32 fotogramas em 8 s; FFmpeg confirmou H.264, 640×360, 4 fps, ecrã 16:9. As imagens dos fotogramas estão preservadas ao lado do vídeo.
+- A exportação de 21 PNG também foi exercitada na pré-visualização Web; a interface Electron disponibiliza a mesma ação.
+- A exportação MP4 é executada pelo FFmpeg local, encontrado na instalação ComfyUI existente. Se não estiver nesse caminho, definir `VIRTUAL_SET_FFMPEG`.
 
+## Limitações
+
+A interface é HTML/JavaScript com Three.js, dentro de Electron; React ainda não foi introduzido. Os manequins são geometria proxy sem esqueleto. A navegação é orbital, sem modo de caminhada. GLB é carregado por GLTFLoader, mas sidecars de glTF externo não são consolidados. A rotação da câmara é controlada pela vista/alvo, sem campos Euler dedicados. A integração IV Studio é importação manual de referência. MCP, biblioteca de animações, mocap e mapas Depth/Pose/Normals permanecem pontos de extensão.
+
+## Componentes e licenças
+
+- IV Studio: código oficial em `hollisorg/iv-studio`, versão publicada 1.1.28, licença MIT. Instalado localmente em `D:\IVSTUDIO\IV Studio\IV Studio.exe`; ProductVersion conferida como 1.1.28.0. A estrutura oficial é Electron com `src/main`, `src/preload`, `src/renderer`, `src/service` e `src/mcp`. O módulo permanece isolado; nenhuma integração foi copiada ou injetada na app de produção.
+- Three.js 0.171.0 e addons distribuídos sob MIT, preservados em `vendor/` com `THREE_LICENSE.txt`.
+- VIG-MiniMaxH3-Director: GPL-3.0. Não reutilizado por incompatibilidade e não necessidade atual.
+- ComfyUI_VNCCS_Utils e comfyui-blender-layout: MIT. Úteis como referências futuras de workflow e composição, mas nenhum código instalado/copied por falta de componente imediatamente necessário nesta app local.
+
+## Ficheiros principais alterados
+
+Ficheiros principais: `package.json`, `package-lock.json`, `.gitignore`, `server.cjs`, `renderer/app.js`, `renderer/index.html`, addons em `vendor/`, `electron/main.cjs`, `electron/preload.cjs`, `electron-builder.json`, `vite.config.js`, `index.html`, `style.css`, `INTEGRACAO_E_LICENCAS.md` e a licença Node.js em `licenses/`.
 ## Reversão
 
-Parar o processo `npm start` com Ctrl+C. O código está contido nesta pasta. Nenhum ficheiro da instalação IV Studio, projetos, personagens, configurações ou modelos foi alterado. Para remover o protótipo, mover ou apagar apenas a pasta `virtual-set` depois de arquivar o que se pretenda conservar.
+Fechar a aplicação ou parar `npm start` com Ctrl+C. O código está contido nesta pasta. Nenhum ficheiro da instalação IV Studio, projetos, personagens, configurações ou modelos foi alterado. Para remover o protótipo, desinstalar Virtual Set e, se também se quiser remover os dados, eliminar apenas `%APPDATA%/iv-studio-virtual-set/Virtual Set Data/`; ou mover/apagar apenas esta pasta do repositório depois de arquivar o que se pretenda conservar.

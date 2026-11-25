@@ -2,13 +2,77 @@
   "name": "iv-studio-virtual-set",
   "version": "0.1.0",
   "private": true,
-  "description": "Isolated 3D virtual set prototype for IV Studio",
-  "main": "server.cjs",
+  "description": "Virtual Set module for IV Studio",
+  "main": "electron/main.cjs",
   "scripts": {
-    "start": "node server.cjs",
-    "check": "node --check server.cjs && node --check renderer/app.js && node --check vendor/OrbitControls.js && node --check vendor/TransformControls.js && node --check vendor/GLTFLoader.js && node --check vendor/GLTFExporter.js && node --check vendor/three.module.js && node --check vendor/utils/BufferGeometryUtils.js"
+    "build": "vite --configLoader runner build",
+    "start:desktop": "electron .",
+    "start": "electron .",
+    "check": "node --check server.cjs && node --check renderer/app.js && node --check electron/main.cjs && node --check vendor/GLTFLoader.js && node --check vendor/GLTFExporter.js",
+    "prepare:runtime": "node scripts/prepare-runtime.cjs",
+    "package:win": "npm run prepare:runtime && npm run build && electron-builder --config electron-builder.json --win nsis --publish never",
+    "package:portable": "npm run prepare:runtime && npm run build && electron-builder --config electron-builder.json --win portable --publish never",
+    "start:web": "vite --configLoader runner --host 127.0.0.1",
+    "build:web": "vite --configLoader runner build"
   },
   "devDependencies": {
-    "three": "0.171.0"
+    "electron-builder": "26.18.0",
+    "vite": "8.3.8",
+    "electron": "45.5.0",
+    "three": "0.171.0",
+    "node-win-x64": "26.13.1"
+  },
+  "allowScripts": {},
+  "dependencies": {},
+  "author": "Flávio Costa",
+  "build": {
+    "appId": "ai.infinitevariance.virtualset",
+    "directories": {
+      "output": "release",
+      "buildResources": "resources"
+    },
+    "nsis": {
+      "oneClick": false,
+      "deleteAppDataOnUninstall": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "productName": "Virtual Set",
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "server.cjs",
+      "package.json",
+      "vendor/**/*",
+      "renderer/**/*",
+      "style.css",
+      "index.html"
+    ],
+    "win": {
+      "artifactName": "Virtual-Set-${version}-Setup.${ext}",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "asar": true,
+    "extraResources": [
+      {
+        "to": "server.cjs",
+        "from": "server.cjs"
+      },
+      {
+        "to": "node/node.exe",
+        "from": "runtime/node/node.exe"
+      },
+      {
+        "to": "node/LICENSE",
+        "from": "runtime/node/LICENSE"
+      }
+    ]
   }
 }
