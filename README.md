@@ -6,7 +6,7 @@ Protótipo local e isolado para realização 3D de uma sala de referência MiniM
 
 ### Windows (recomendado)
 
-Executar `release/Virtual-Set-0.1.0-Setup.exe`. O instalador é independente do IV Studio, não toca nos seus dados e mantém a pasta de dados do Virtual Set ao desinstalar. O executável portátil também está em `release/win-unpacked/Virtual Set.exe`.
+Transferir `Virtual-Set-0.1.0-Setup.exe` na [release v0.1.0](https://github.com/flavi0costa/virtual-set/releases/tag/v0.1.0). O instalador é independente do IV Studio, não toca nos seus dados e mantém a pasta de dados do Virtual Set ao desinstalar. Para gerar o executável portátil a partir do código, executar `npm run package:win`; os binários de `release/` não são guardados no histórico Git.
 
 ### Desenvolvimento
 
