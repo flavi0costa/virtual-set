@@ -23,7 +23,7 @@ As cenas, texturas, modelos e exportações da app instalada ficam em `%APPDATA%
 - Iluminação e exposição configuráveis.
 - Guardar/reabrir cena em JSON; cópias de texturas e modelos em pastas da cena.
 - Exportação de fotogramas PNG e MP4 H.264 via FFmpeg. Predefinição leve: 640×360.
-- `IMPORTAR_IV_STUDIO.md` no output de vídeo documenta a importação manual. Não há submissão automática ao H3.
+- A cena e a exportação de aceitação estão preservadas em `examples/Sala-experimental-6x5/`, com instruções de importação manual no IV Studio. Não há submissão automática ao H3.
 
 ## Verificação executada
 
@@ -33,6 +33,7 @@ As cenas, texturas, modelos e exportações da app instalada ficam em `%APPDATA%
 - Pela interface Electron, foram escolhidos três enquadramentos, criada a órbita de câmara e a trajetória de um manequim. O MP4 exportado contém 32 fotogramas em 8 s; FFmpeg confirmou H.264, 640×360, 4 fps, ecrã 16:9. As imagens dos fotogramas estão preservadas ao lado do vídeo.
 - A exportação de 21 PNG também foi exercitada na pré-visualização Web; a interface Electron disponibiliza a mesma ação.
 - A exportação MP4 é executada pelo FFmpeg local, encontrado na instalação ComfyUI existente. Se não estiver nesse caminho, definir `VIRTUAL_SET_FFMPEG`.
+- A cena de aceitação no repositório inclui a sala JSON, as seis texturas efetivamente usadas, o MP4, os 32 fotogramas e as instruções de importação.
 
 ## Limitações
 
