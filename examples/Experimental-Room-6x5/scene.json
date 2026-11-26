@@ -1,6 +1,6 @@
 {
   "version": "0.1",
-  "name": "Sala experimental 6x5",
+  "name": "Experimental Room 6x5",
   "room": {
     "w": 6,
     "d": 5,
@@ -11,7 +11,7 @@
     {
       "userData": {
         "id": "16e782aa-caf3-452a-90bf-09f1880a7db2",
-        "name": "Mesa",
+        "name": "Table",
         "kind": "table",
         "position": [
           2,
@@ -35,7 +35,7 @@
     {
       "userData": {
         "id": "4657a0de-8b24-431f-9a80-e642f6a28cba",
-        "name": "Sofá",
+        "name": "Sofa",
         "kind": "sofa",
         "position": [
           -0.9,
@@ -59,7 +59,7 @@
     {
       "userData": {
         "id": "9144a253-56da-4ef8-84aa-7777760be84a",
-        "name": "Manequim A",
+        "name": "Character A",
         "kind": "mannequin",
         "position": [
           -0.7,
@@ -83,7 +83,7 @@
     {
       "userData": {
         "id": "581eefed-5674-437a-b576-39d5319a14ac",
-        "name": "Manequim B",
+        "name": "Character B",
         "kind": "mannequin",
         "position": [
           0.75,
@@ -135,46 +135,46 @@
   },
   "surfaces": [
     {
-      "name": "Norte",
+      "name": "North",
       "filename": "north.png",
       "rotation": 0,
       "scale": 1,
-      "asset": "Sala-experimental-6x5/textures/1795603347864-csz77.png"
+      "asset": "Experimental-Room-6x5/textures/1795603347864-csz77.png"
     },
     {
-      "name": "Sul",
+      "name": "South",
       "filename": "south.png",
       "rotation": 1.5707963267948966,
       "scale": 1.1,
-      "asset": "Sala-experimental-6x5/textures/1795603347865-wzu01.png"
+      "asset": "Experimental-Room-6x5/textures/1795603347865-wzu01.png"
     },
     {
-      "name": "Este",
+      "name": "East",
       "filename": "east.png",
       "rotation": 3.141592653589793,
       "scale": 1.2,
-      "asset": "Sala-experimental-6x5/textures/1795603347866-zr8ih.png"
+      "asset": "Experimental-Room-6x5/textures/1795603347866-zr8ih.png"
     },
     {
-      "name": "Oeste",
+      "name": "West",
       "filename": "west.png",
       "rotation": 4.71238898038469,
       "scale": 1.3,
-      "asset": "Sala-experimental-6x5/textures/1795603347867-vqd82.png"
+      "asset": "Experimental-Room-6x5/textures/1795603347867-vqd82.png"
     },
     {
-      "name": "Chão",
+      "name": "Floor",
       "filename": "floor.png",
       "rotation": 0,
       "scale": 1.4,
-      "asset": "Sala-experimental-6x5/textures/1795603347869-k321z.png"
+      "asset": "Experimental-Room-6x5/textures/1795603347869-k321z.png"
     },
     {
-      "name": "Teto",
+      "name": "Ceiling",
       "filename": "ceiling.png",
       "rotation": 1.5707963267948966,
       "scale": 1.5,
-      "asset": "Sala-experimental-6x5/textures/1795603347870-evv31.png"
+      "asset": "Experimental-Room-6x5/textures/1795603347870-evv31.png"
     }
   ]
 }

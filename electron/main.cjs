@@ -32,7 +32,7 @@ app.whenReady().then(async () => {
   const bundledNode = path.join(process.resourcesPath, 'node', 'node.exe');
   const node = process.env.VIRTUAL_SET_NODE || (await fs.access(bundledNode).then(() => bundledNode, async () => { for (const candidate of nodeCandidates) { try { await fs.access(candidate); return candidate; } catch {} } return 'node'; }));
   server = spawn(node, [serverPath], { cwd: root, windowsHide: true, stdio: 'ignore', env: { ...process.env, ELECTRON_RUN_AS_NODE: '1', VIRTUAL_SET_PORT: String(port), VIRTUAL_SET_DATA: dataDir } });
-  server.once('error', e => console.error(`Não foi possível iniciar o servidor local (${node}). Instale Node.js 22+ ou defina VIRTUAL_SET_NODE.`, e.message));
+  server.once('error', e => console.error(`Could not start the local server (${node}). Instale Node.js 22+ ou defina VIRTUAL_SET_NODE.`, e.message));
   try { await waitForServer(server); await createWindow(); }
   catch (e) { console.error(e.message); app.quit(); }
   app.on('activate', () => { if (BrowserWindow.getAllWindows().length === 0) createWindow(); });
